@@ -18,7 +18,7 @@ public class SuperEditTextConfig {
     }
     public SuperEditTextConfig(Context context,SuperEditTextConfig config){
         if(config==null){
-            
+
         }
     }
 }
