@@ -14,7 +14,7 @@ public class SuperEditTextConfig {
     private Drawable deleteIcon;
 
     public SuperEditTextConfig(Context context){
-
+            dgdfg
     }
     public SuperEditTextConfig(Context context,SuperEditTextConfig config){
         if(config==null){
