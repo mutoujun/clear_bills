@@ -24,7 +24,8 @@ import com.android.account.clear_bills.ViewModel.Bmob_Net;
  */
 
 public class Resigete_Fragment extends Fragment implements View.OnClickListener{
-    EditText name,account,password,repassword;
+    private EditText name,account,password,repassword;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,8 +42,8 @@ public class Resigete_Fragment extends Fragment implements View.OnClickListener{
         actionBar.setTitle("");
         ImageView imageBack = (ImageView) view.findViewById(R.id.img_back);
         imageBack.setOnClickListener(this);
-        Button encrollButton = (Button) view.findViewById(R.id.btn_encroll);
-        encrollButton.setOnClickListener(this);
+        Button enrollButton = (Button) view.findViewById(R.id.btn_encroll);
+        enrollButton.setOnClickListener(this);
         name = (EditText) view.findViewById(R.id.enroll_name);
         account = (EditText) view.findViewById(R.id.enroll_account);
         password = (EditText) view.findViewById(R.id.enroll_passwrd);
