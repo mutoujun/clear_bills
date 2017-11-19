@@ -5,4 +5,5 @@ package com.android.account.clear_bills;
  */
 
 public class Public_Data {
+    public static String user;
 }

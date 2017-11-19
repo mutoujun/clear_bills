@@ -21,13 +21,13 @@ import com.android.account.clear_bills.Public_Data;
 import com.android.account.clear_bills.R;
 import com.android.account.clear_bills.ViewModel.Bmob_Net;
 
-public class DetailListActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     View dialogView;
     EditText money,things;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_list);
+        setContentView(R.layout.activity_main);
         //初始化绑定视图ID
         init();
 
@@ -59,7 +59,7 @@ public class DetailListActivity extends AppCompatActivity implements View.OnClic
                 finish();
                 break;
             case R.id.add:
-                dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_detail,null);
+                dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_order,null);
                 money = (EditText)dialogView.findViewById(R.id.money);
                 things = (EditText)dialogView.findViewById(R.id.things);
                 new AlertDialog.Builder(this).setTitle(Public_Data.user)
@@ -68,13 +68,13 @@ public class DetailListActivity extends AppCompatActivity implements View.OnClic
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if(TextUtils.isEmpty(money.getText().toString())||TextUtils.isEmpty(things.getText().toString())){
-                                    Toast.makeText(DetailListActivity.this, "信息不能为空", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "信息不能为空", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                                Bmob_Net.getBmob_net(DetailListActivity.this).addorder( Float.parseFloat(money.getText().toString()), things.getText().toString(), new Bmob_Login_interface() {
+                                Bmob_Net.getBmob_net(MainActivity.this).addorder( Float.parseFloat(money.getText().toString()), things.getText().toString(), new Bmob_Login_interface() {
                                     @Override
                                     public void success(int code, String message,String user) {
-                                        Toast.makeText(DetailListActivity.this, message, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
 
                                     }
                                 });
