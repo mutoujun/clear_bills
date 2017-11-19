@@ -1,5 +1,6 @@
 package com.android.account.clear_bills.Interface;
 
+import com.android.account.clear_bills.Bean.User;
 import com.android.account.clear_bills.ViewModel.Bmob_Net;
 
 /**
@@ -12,7 +13,7 @@ public interface Bmob_Login_interface {
      * * 登录调用例子
      *  Bmob_Net.getBmob_net(this).login("username", "password", new Bmob_Login_interface() {
             @Override
-            public void success(int code, String message) {
+            public void success(int code, String message,User user) {
 
             }
             });
@@ -21,7 +22,7 @@ public interface Bmob_Login_interface {
      * 注册调用例子
      *  Bmob_Net.getBmob_net(this).register("name", "username", "password", new Bmob_Login_interface() {
             @Override
-            public void success(int code, String message) {
+            public void success(int code, String message,User user) {
 
             }
             });
@@ -29,5 +30,5 @@ public interface Bmob_Login_interface {
      * @param code  0：表示失败，1：表示成功
      * @param message   返回信息
      */
-    void success(int code,String message);
+    void success(int code, String message, User user);
 }

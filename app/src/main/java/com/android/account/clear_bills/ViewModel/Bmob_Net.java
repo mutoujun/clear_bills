@@ -41,9 +41,9 @@ public class Bmob_Net extends BaseClass{
             @Override
             public void done(User s, BmobException e) {
                 if(e==null){
-                    bmob_login_interface.success(1,"注册成功");
+                    bmob_login_interface.success(1,"注册成功",null);
                 }else{
-                    bmob_login_interface.success(0,e.getMessage());
+                    bmob_login_interface.success(0,e.getMessage(),null);
                 }
             }
         });
@@ -56,11 +56,11 @@ public class Bmob_Net extends BaseClass{
             @Override
             public void done(User bmobUser, BmobException e) {
                 if(e==null){
-                    bmob_login_interface.success(1,"登录成功");
+                    bmob_login_interface.success(1,"登录成功",bmobUser);
                     //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
                     //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
                 }else{
-                    bmob_login_interface.success(0,e.getMessage());
+                    bmob_login_interface.success(0,e.getMessage(),null);
                 }
             }
         });
