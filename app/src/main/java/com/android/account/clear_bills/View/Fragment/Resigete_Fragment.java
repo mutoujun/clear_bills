@@ -1,4 +1,4 @@
-package com.android.account.clear_bills.Fragment;
+package com.android.account.clear_bills.View.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.android.account.clear_bills.MainActivity;
+import com.android.account.clear_bills.View.MainActivity;
 import com.android.account.clear_bills.R;
 
 /**

@@ -1,4 +1,4 @@
-package com.android.account.clear_bills;
+package com.android.account.clear_bills.View;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -8,7 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.account.clear_bills.Fragment.Resigete_Fragment;
+import com.android.account.clear_bills.View.Fragment.Resigete_Fragment;
+import com.android.account.clear_bills.R;
 
 public class MainActivity extends AppCompatActivity {
 

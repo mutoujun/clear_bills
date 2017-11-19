@@ -1,4 +1,4 @@
-package com.android.account.clear_bills;
+package com.android.account.clear_bills.Control;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,6 +10,8 @@ import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.TextView;
+
+import com.android.account.clear_bills.R;
 
 import java.lang.reflect.Field;
 
