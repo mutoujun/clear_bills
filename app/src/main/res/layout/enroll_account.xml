@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/enroll_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        >
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="用 户 注 册"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户名   ："
+                android:gravity="right"
+                android:textSize="20dp"/>
+            <EditText
+                android:id="@+id/enroll_account"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="请输入用户名"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="密     码  ："
+                android:textSize="20dp"/>
+            <EditText
+                android:id="@+id/enroll_passwrd"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="请输入用户名"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确认密码："
+                android:gravity="right"
+                android:textSize="20dp"/>
+            <EditText
+                android:id="@+id/enroll_repasswrd"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="请输入用户名"/>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:id="@+id/btn_encroll"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="注册用户"/>
+        </TableRow>
+    </TableLayout>
+
+
+
+</LinearLayout>
+</FrameLayout>

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">clear_bills</string>
+    <string name="app_name">DIY_View</string>
+    <string name="title_activity_message">MessageActivity</string>
 </resources>
