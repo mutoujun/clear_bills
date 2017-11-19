@@ -68,7 +68,7 @@ public class Resigete_Fragment extends Fragment implements View.OnClickListener{
                 }
                 Bmob_Net.getBmob_net(getContext()).register(name.getText().toString(), account.getText().toString(), password.getText().toString(), new Bmob_Login_interface() {
                     @Override
-                    public void success(int code, String message) {
+                    public void success(int code, String message,String s) {
                         if(code==1){
                             getFragmentManager().popBackStack();
                         }

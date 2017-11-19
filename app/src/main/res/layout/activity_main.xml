@@ -13,13 +13,6 @@
     android:layout_height="match_parent"
     tools:context="com.android.account.clear_bills.View.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/login_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/colorPrimary">
-    </android.support.v7.widget.Toolbar>
-
     <LinearLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -55,6 +48,7 @@
         app:counterEnabled="true"
         app:counterMaxLength="11">
         <com.android.account.clear_bills.Control.SuperEditText
+            android:id="@+id/login_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint=" 请输入帐号"
@@ -78,10 +72,11 @@
         app:hintEnabled="true"
         >
         <com.android.account.clear_bills.Control.SuperEditText
+            android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint=" 密码"
-            android:inputType="numberPassword"
+            android:inputType="textPassword"
             app:ic_left_unclick="@drawable/ic_password_unclick"
             app:ic_left_click="@drawable/ic_password_click"
             app:ic_delete="@drawable/delete"
@@ -107,7 +102,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
         android:text="新用户注册"
-        android:onClick="onEnrollAccount"
+        android:onClick="open_resiter"
         android:textColor="@color/colorPrimary"
         android:background="@color/transparent" />
 
