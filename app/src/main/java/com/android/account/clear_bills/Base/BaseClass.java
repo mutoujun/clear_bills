@@ -14,6 +14,5 @@ public class BaseClass<T> {
     }
     public void toast(T s){
         Toast.makeText(context, String.valueOf(s), Toast.LENGTH_SHORT).show();
-
     }
 }
