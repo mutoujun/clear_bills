@@ -8,10 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.account.clear_bills.Bean.Order;
 import com.android.account.clear_bills.Interface.Bmob_Login_interface;
+import com.android.account.clear_bills.Interface.Get_BmobData;
 import com.android.account.clear_bills.R;
 import com.android.account.clear_bills.View.Fragment.Resigete_Fragment;
 import com.android.account.clear_bills.ViewModel.Bmob_Net;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     EditText account,password;
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.login_button:{
+
                 Bmob_Net.getBmob_net(this).login(account.getText().toString(), password.getText().toString(), new Bmob_Login_interface() {
                     @Override
                     public void success(int code, String message,String user) {

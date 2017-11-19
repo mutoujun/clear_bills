@@ -3,11 +3,16 @@ package com.android.account.clear_bills.ViewModel;
 import android.content.Context;
 
 import com.android.account.clear_bills.Base.BaseClass;
+import com.android.account.clear_bills.Bean.Order;
 import com.android.account.clear_bills.Bean.User;
 import com.android.account.clear_bills.Interface.Bmob_Login_interface;
+import com.android.account.clear_bills.Interface.Get_BmobData;
 
-import cn.bmob.v3.Bmob;
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -66,4 +71,46 @@ public class Bmob_Net extends BaseClass{
             }
         });
     }
+    public void addorder(float money,String remark,final Bmob_Login_interface bmob_login_interface){
+        User user=User.getCurrentUser(User.class);
+        Order order=new Order();
+//注意：不能调用gameScore.setObjectId("")方法
+        order.setName(user.getName());
+        order.setMoney(Float.valueOf(money));
+        order.setRemark(remark);
+        order.save(new SaveListener<String>() {
+            @Override
+            public void done(String objectId, BmobException e) {
+                if(e==null){
+                    bmob_login_interface.success(1,"创建数据成功：",null);
+                    toast("创建数据成功：" + objectId);
+                }else{
+                    bmob_login_interface.success(0,"失败："+e.getMessage()+","+e.getErrorCode(),null);
+                }
+            }
+        });
+    }
+    public void searchorder(final Get_BmobData<List<Order>> get_bmobData){
+        BmobQuery<Order> query = new BmobQuery<Order>();
+//查询playerName叫“比目”的数据
+        query.order("-updatedAt");
+//返回50条数据，如果不加上这条语句，默认返回10条数据
+        query.setLimit(50);
+//执行查询方法
+        query.findObjects(new FindListener<Order>() {
+            @Override
+            public void done(List<Order> object, BmobException e) {
+                if(e==null){
+                    get_bmobData.success(object);
+                   // toast("查询成功：共"+object.size()+"条数据。");
+
+                }else{
+                    get_bmobData.fail("失败："+e.getMessage()+","+e.getErrorCode());
+                    //Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                }
+            }
+        });
+    }
+
+
 }
