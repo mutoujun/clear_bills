@@ -15,6 +15,7 @@ import cn.bmob.v3.listener.SaveListener;
  */
 
 public class Bmob_Net extends BaseClass{
+
     private static volatile Bmob_Net bmob_net=null;
     private Context context;
     private Bmob_Net(Context context){
