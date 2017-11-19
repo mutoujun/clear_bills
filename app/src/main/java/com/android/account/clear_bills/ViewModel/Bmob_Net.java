@@ -6,6 +6,7 @@ import com.android.account.clear_bills.Base.BaseClass;
 import com.android.account.clear_bills.Bean.User;
 import com.android.account.clear_bills.Interface.Bmob_Login_interface;
 
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
