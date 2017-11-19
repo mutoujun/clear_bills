@@ -57,7 +57,7 @@ public class Bmob_Net extends BaseClass{
             @Override
             public void done(User bmobUser, BmobException e) {
                 if(e==null){
-                    bmob_login_interface.success(1,"登录成功",bmobUser);
+                    bmob_login_interface.success(1,"登录成功",bmobUser.getName());
                     //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
                     //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
                 }else{
