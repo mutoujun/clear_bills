@@ -49,6 +49,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:orientation="vertical"
+        app:hintAnimationEnabled="false"
         app:errorEnabled="true"
         app:hintEnabled="true"
         app:counterEnabled="true"
@@ -73,6 +74,7 @@
         android:layout_marginRight="30dp"
         android:orientation="vertical"
         app:errorEnabled="true"
+        app:hintAnimationEnabled="false"
         app:hintEnabled="true"
         >
         <com.android.account.clear_bills.Control.SuperEditText

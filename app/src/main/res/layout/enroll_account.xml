@@ -6,12 +6,11 @@
 
 
 <LinearLayout
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:clickable="true"
-    >
+    android:orientation="vertical">
     <android.support.v7.widget.Toolbar
         android:id="@+id/enroll_toolbar"
         android:layout_width="match_parent"
@@ -41,11 +40,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="用户名   ："
+                android:text="用户名："
                 android:gravity="right"
                 android:textSize="20dp"/>
             <EditText
-                android:id="@+id/enroll_account"
+                android:id="@+id/enroll_name"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -55,15 +54,29 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="帐号："
                 android:gravity="right"
-                android:text="密     码  ："
+                android:textSize="20dp"/>
+            <EditText
+                android:id="@+id/enroll_account"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="请输入帐号"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="密码："
                 android:textSize="20dp"/>
             <EditText
                 android:id="@+id/enroll_passwrd"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="请输入用户名"/>
+                android:hint="请输入密码"/>
         </TableRow>
         <TableRow>
             <TextView
@@ -76,7 +89,7 @@
                 android:id="@+id/enroll_repasswrd"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="请输入用户名"/>
+                android:hint="请确认密码"/>
         </TableRow>
         <TableRow>
             <Button
