@@ -8,13 +8,12 @@ import com.android.account.clear_bills.ViewModel.Bmob_Net;
 
 public interface Bmob_Login_interface {
     //登录和注册同一个接口
-
     /**
      * 调用例子
      *  Bmob_Net.getBmob_net(this).register("name", "username", "password", new Bmob_Login_interface() {
             @Override
             public void success(int code, String message) {
-                    
+
             }
             });
      *
