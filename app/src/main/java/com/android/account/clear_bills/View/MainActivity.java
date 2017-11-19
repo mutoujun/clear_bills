@@ -8,8 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.account.clear_bills.Interface.Bmob_Login_interface;
 import com.android.account.clear_bills.View.Fragment.Resigete_Fragment;
 import com.android.account.clear_bills.R;
+import com.android.account.clear_bills.ViewModel.Bmob_Net;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                Toast.makeText(this, "1", Toast.LENGTH_SHORT).show();
+
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -49,6 +51,5 @@ public class MainActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .add(R.id.contrain,new Resigete_Fragment())
                 .commit();
-
     }
 }

@@ -43,8 +43,6 @@ public class Resigete_Fragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.img_back:
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
                 getFragmentManager().popBackStack();
                 break;
         }

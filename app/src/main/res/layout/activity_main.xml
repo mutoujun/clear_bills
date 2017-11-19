@@ -16,7 +16,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/login_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="45dp"
         android:background="@color/colorPrimary">
     </android.support.v7.widget.Toolbar>
 
@@ -53,7 +53,7 @@
         app:hintEnabled="true"
         app:counterEnabled="true"
         app:counterMaxLength="11">
-        <com.android.account.clear_bills.SuperEditText
+        <com.android.account.clear_bills.Control.SuperEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint=" 请输入帐号"
@@ -75,7 +75,7 @@
         app:errorEnabled="true"
         app:hintEnabled="true"
         >
-        <com.android.account.clear_bills.SuperEditText
+        <com.android.account.clear_bills.Control.SuperEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint=" 密码"
