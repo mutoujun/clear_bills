@@ -1,6 +1,7 @@
 package com.android.account.clear_bills.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView tvUser,tvMoney,tvRemark;
+        TextView tvLabel1,tvLabel2,tvLabel3;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -32,6 +34,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             tvUser = (TextView) itemView.findViewById(R.id.tv_user);
             tvMoney = (TextView) itemView.findViewById(R.id.tv_money);
             tvRemark = (TextView)itemView.findViewById(R.id.tv_remark);
+            tvLabel1 = (TextView) itemView.findViewById(R.id.tv_label1);
+            tvLabel2 = (TextView) itemView.findViewById(R.id.tv_label2);
+            tvLabel3 = (TextView) itemView.findViewById(R.id.tv_label3);
         }
     }
 
@@ -52,6 +57,18 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Order order = orderList.get(position);
         holder.tvUser.setText(order.getName());
+        String userName = holder.tvUser.getText().toString();
+        if(userName.equals("陈煜")){
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#ffaa00"));
+            holder.tvLabel1.setTextColor(Color.parseColor("#0000ff"));
+            holder.tvLabel2.setTextColor(Color.parseColor("#0000ff"));
+            holder.tvLabel3.setTextColor(Color.parseColor("#0000ff"));
+        }else {
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#0000ff"));
+            holder.tvLabel1.setTextColor(Color.parseColor("#ffaa00"));
+            holder.tvLabel1.setTextColor(Color.parseColor("#ffaa00"));
+            holder.tvLabel1.setTextColor(Color.parseColor("#ffaa00"));
+        }
         holder.tvMoney.setText(order.getMoney().toString());
         holder.tvRemark.setText(order.getRemark());
     }
