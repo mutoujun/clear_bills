@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.android.account.clear_bills.Bean.User;
 import com.android.account.clear_bills.Interface.Bmob_Login_interface;
+import com.android.account.clear_bills.Public_Data;
 import com.android.account.clear_bills.R;
 import com.android.account.clear_bills.View.Fragment.Register_Fragment;
 import com.android.account.clear_bills.ViewModel.Bmob_Net;
@@ -57,11 +58,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void success(int code, String message,String user) {
                         if (code==1){
                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                            intent.putExtra("extra_name",user);
+                            Public_Data.user = user;
                             startActivity(intent);
                             Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                         }else if(code==0){
                             Toast.makeText(LoginActivity.this,"帐号或密码不正确，请重新输入!",Toast.LENGTH_SHORT).show();
                         }
+
+                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+
                     }
                 });
 

@@ -26,6 +26,7 @@ import com.android.account.clear_bills.Public_Data;
 import com.android.account.clear_bills.R;
 import com.android.account.clear_bills.ViewModel.Bmob_Net;
 
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -113,46 +114,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
             case R.id.add:
-                View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_order,null);
-                money = (EditText)dialogView.findViewById(R.id.money);
-                remark = (EditText)dialogView.findViewById(R.id.remark);
+                View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_order, null);
+                money = (EditText) dialogView.findViewById(R.id.money);
+                remark = (EditText) dialogView.findViewById(R.id.remark);
                 new AlertDialog.Builder(this).setTitle(Public_Data.user).setView(dialogView)
                         .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                if(TextUtils.isEmpty(money.getText().toString())||TextUtils.isEmpty(remark.getText().toString())){
+
+                                if (TextUtils.isEmpty(money.getText().toString()) || TextUtils.isEmpty(remark.getText().toString())) {
                                     Toast.makeText(MainActivity.this, "信息不能为空", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                                Bmob_Net.getBmob_net(MainActivity.this).addorder( Float.parseFloat(money.getText().toString()), remark.getText().toString(), new Bmob_Login_interface() {
+                                Bmob_Net.getBmob_net(MainActivity.this).addorder(Float.parseFloat(money.getText().toString()), remark.getText().toString(), new Bmob_Login_interface() {
                                     @Override
-                                    public void success(int code, String message,String user) {
-                                        Order order=new Order();
+                                    public void success(int code, String message, String user) {
+                                        Order order = new Order();
                                         order.setName(Public_Data.user);
                                         order.setMoney(Float.parseFloat(money.getText().toString()));
                                         order.setRemark(remark.getText().toString());
                                         adapter.add(order);
-                                        if (code==0) {
+                                        if (code == 0) {
                                             Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
                             }
                         }).create().show();
-
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
 
     void sumMoney(final String[] name){
 
@@ -178,5 +175,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
