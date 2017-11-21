@@ -1,6 +1,7 @@
 package com.android.account.clear_bills.ViewModel;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.account.clear_bills.Base.BaseClass;
 import com.android.account.clear_bills.Bean.Order;
@@ -8,11 +9,16 @@ import com.android.account.clear_bills.Bean.User;
 import com.android.account.clear_bills.Interface.Bmob_Login_interface;
 import com.android.account.clear_bills.Interface.Get_BmobData;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -93,6 +99,7 @@ public class Bmob_Net extends BaseClass{
     public void searchorder(final Get_BmobData<List<Order>> get_bmobData){
         BmobQuery<Order> query = new BmobQuery<Order>();
 //查询playerName叫“比目”的数据
+        query.addWhereEqualTo("enter",false);
         query.order("-updatedAt");
 //返回50条数据，如果不加上这条语句，默认返回10条数据
         query.setLimit(50);
@@ -109,6 +116,40 @@ public class Bmob_Net extends BaseClass{
                     //Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                 }
             }
+        });
+    }
+    public void getsummoney(String name,final Get_BmobData<Integer> get_bmobData){
+        BmobQuery<Order> query = new BmobQuery<Order>();
+//查询playerName叫“比目”的数据
+        query.addWhereEqualTo("enter", false);
+        query.addWhereEqualTo("name", name);
+        query.sum(new String[] { "money" });
+//返回50条数据，如果不加上这条语句，默认返回10条数据
+        query.setLimit(500);
+//执行查询方法
+        query.findStatistics(Order.class,new QueryListener<JSONArray>() {
+
+            @Override
+            public void done(JSONArray ary, BmobException e) {
+                if(e==null){
+                    if(ary!=null){//
+                        try {
+                            JSONObject obj = ary.getJSONObject(0);
+                            int sum = obj.getInt("_sumMoney");//_(关键字)+首字母大写的列名
+                            get_bmobData.success(sum);
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+                    }else{
+                        get_bmobData.success(0);
+                       // showToast("查询成功，无数据");
+                    }
+                }else{
+                    get_bmobData.fail("失败："+e.getMessage()+","+e.getErrorCode());
+                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                }
+            }
+
         });
     }
 

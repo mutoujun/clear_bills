@@ -11,7 +11,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.account.clear_bills.View.MainActivity">
+    tools:context="com.android.account.clear_bills.View.LoginActivity">
 
     <LinearLayout
         android:id="@+id/title"
@@ -55,7 +55,7 @@
             app:ic_left_unclick="@drawable/ic_left_unclick"
             app:ic_left_click="@drawable/ic_left_click"
             app:ic_delete="@drawable/delete"
-            />
+            android:drawablePadding="3dp"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -79,7 +79,7 @@
             app:ic_left_unclick="@drawable/ic_password_unclick"
             app:ic_left_click="@drawable/ic_password_click"
             app:ic_delete="@drawable/delete"
-            />
+            android:drawablePadding="3dp"/>
     </android.support.design.widget.TextInputLayout>
     <Button
         android:id="@+id/login_button"
@@ -92,9 +92,10 @@
         android:text="登     录"
         android:textSize="15sp"
         android:textColor="@color/white"
-        android:background="@color/translucent_blue"/>
+        android:background="@drawable/login_button_bg"/>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_button"
@@ -105,7 +106,7 @@
             android:id="@+id/remember_pasword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true" />
         <TextView
             android:id="@+id/remember_text"
             android:layout_width="wrap_content"
@@ -121,11 +122,9 @@
             android:layout_alignParentRight="true"
             android:text="新用户注册"
             android:onClick="open_resiter"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@drawable/register_button_bg"
             android:background="@color/transparent" />
     </RelativeLayout>
-
-
 
 </RelativeLayout>
 </FrameLayout>

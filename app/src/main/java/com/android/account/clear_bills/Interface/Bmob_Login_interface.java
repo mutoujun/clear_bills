@@ -25,12 +25,12 @@ public interface Bmob_Login_interface {
             });
 
      *添加数据调用例子
-     *  Bmob_Net.getBmob_net(this).addorder( money, remark, new Bmob_Login_interface() {
-    @Override
-    public void success(int code, String message,String user) {
+     *  Bmob_Net.getBmob_net(this).addorder( float money, String remark, new Bmob_Login_interface() {
+            @Override
+            public void success(int code, String message,String user) {
 
-    }
-    });
+            }
+            });
      * @param code  0：表示失败，1：表示成功
      * @param message   返回信息
      */

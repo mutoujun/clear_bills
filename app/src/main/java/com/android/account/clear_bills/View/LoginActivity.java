@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(this, "请输入帐号或密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Bmob_Net.getBmob_net(this).login(accountEdit.getText().toString(), passwordEdit.getText().toString(), new Bmob_Login_interface() {
+                Bmob_Net.getBmob_net(this).login(account, password, new Bmob_Login_interface() {
                     @Override
                     public void success(int code, String message,String user) {
                         if (code==1){
@@ -61,8 +61,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             intent.putExtra("extra_name",user);
                             Public_Data.user = user;
                             startActivity(intent);
+                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }else if(code==0){
+                            Toast.makeText(LoginActivity.this,"帐号或密码不正确，请重新输入!",Toast.LENGTH_SHORT).show();
                         }
+
                         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
