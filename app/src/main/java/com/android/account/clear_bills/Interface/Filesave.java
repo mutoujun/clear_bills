@@ -1,10 +1,14 @@
 package com.android.account.clear_bills.Interface;
 
+import com.android.account.clear_bills.ViewModel.FileOnline;
+
 /**
  * Created by Administrator on 2017/11/21.
  */
 
 public interface Filesave {
+   // FileOnline fileonline=new FileOnline();
+    //Filesave filesave=(Filesave)fileonline;
     /**记住密码
      * 登录成功调用
      * @param b 填入是否记住密码
