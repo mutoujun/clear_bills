@@ -23,13 +23,13 @@ import com.android.account.clear_bills.ViewModel.Bmob_Net;
  * Created by Administrator on 2017/11/18.
  */
 
-public class Resigete_Fragment extends Fragment implements View.OnClickListener{
+public class Register_Fragment extends Fragment implements View.OnClickListener{
     private EditText name,account,password,repassword;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.enroll_account,container,false);
+        View view=inflater.inflate(R.layout.fragment_register,container,false);
         //绑定控件
         init(view);
         return view;

@@ -11,19 +11,18 @@ import android.widget.Toast;
 
 import com.android.account.clear_bills.Bean.User;
 import com.android.account.clear_bills.Interface.Bmob_Login_interface;
-import com.android.account.clear_bills.Public_Data;
 import com.android.account.clear_bills.R;
-import com.android.account.clear_bills.View.Fragment.Resigete_Fragment;
+import com.android.account.clear_bills.View.Fragment.Register_Fragment;
 import com.android.account.clear_bills.ViewModel.Bmob_Net;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText accountEdit,passwordEdit;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         //绑定控件
         init();
     }
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void open_resiter(View view){
         getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)
-                .add(R.id.contrain,new Resigete_Fragment())
+                .add(R.id.contrain,new Register_Fragment())
                 .commit();
     }
 
@@ -53,16 +52,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, "请输入帐号或密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Bmob_Net.getBmob_net(this).login(accountEdit.getText().toString(), passwordEdit.getText().toString(), new Bmob_Login_interface() {
+                Bmob_Net.getBmob_net(this).login(account, password, new Bmob_Login_interface() {
                     @Override
                     public void success(int code, String message,String user) {
                         if (code==1){
-                            Intent intent = new Intent(MainActivity.this,DetailListActivity.class);
-                            intent.putExtra("extra_name",user);
-                            Public_Data.user = user;
+                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                             startActivity(intent);
+                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }else if(code==0){
+                            Toast.makeText(LoginActivity.this,"帐号或密码不正确，请重新输入!",Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
                 });
 
