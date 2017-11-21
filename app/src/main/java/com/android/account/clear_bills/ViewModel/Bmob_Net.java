@@ -7,7 +7,7 @@ import com.android.account.clear_bills.Base.BaseClass;
 import com.android.account.clear_bills.Bean.Order;
 import com.android.account.clear_bills.Bean.User;
 import com.android.account.clear_bills.Interface.Bmob_Login_interface;
-import com.android.account.clear_bills.Interface.Get_BmobData;
+import com.android.account.clear_bills.Interface.Callback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -82,6 +82,7 @@ public class Bmob_Net extends BaseClass{
         Order order=new Order();
 //注意：不能调用gameScore.setObjectId("")方法
         order.setName(user.getName());
+        order.setEnter(false);
         order.setMoney(Float.valueOf(money));
         order.setRemark(remark);
         order.save(new SaveListener<String>() {
@@ -96,7 +97,7 @@ public class Bmob_Net extends BaseClass{
             }
         });
     }
-    public void searchorder(final Get_BmobData<List<Order>> get_bmobData){
+    public void searchorder(final Callback<List<Order>> callback){
         BmobQuery<Order> query = new BmobQuery<Order>();
 //查询playerName叫“比目”的数据
         query.addWhereEqualTo("enter",false);
@@ -108,17 +109,17 @@ public class Bmob_Net extends BaseClass{
             @Override
             public void done(List<Order> object, BmobException e) {
                 if(e==null){
-                    get_bmobData.success(object);
+                    callback.success(object);
                    // toast("查询成功：共"+object.size()+"条数据。");
 
                 }else{
-                    get_bmobData.fail("失败："+e.getMessage()+","+e.getErrorCode());
+                    callback.fail("失败："+e.getMessage()+","+e.getErrorCode());
                     //Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                 }
             }
         });
     }
-    public void getsummoney(String name,final Get_BmobData<Integer> get_bmobData){
+    public void getsummoney(String name,final Callback<Integer> callback){
         BmobQuery<Order> query = new BmobQuery<Order>();
 //查询playerName叫“比目”的数据
         query.addWhereEqualTo("enter", false);
@@ -136,16 +137,16 @@ public class Bmob_Net extends BaseClass{
                         try {
                             JSONObject obj = ary.getJSONObject(0);
                             int sum = obj.getInt("_sumMoney");//_(关键字)+首字母大写的列名
-                            get_bmobData.success(sum);
+                            callback.success(sum);
                         } catch (JSONException e1) {
                             e1.printStackTrace();
                         }
                     }else{
-                        get_bmobData.success(0);
+                        callback.success(0);
                        // showToast("查询成功，无数据");
                     }
                 }else{
-                    get_bmobData.fail("失败："+e.getMessage()+","+e.getErrorCode());
+                    callback.fail("失败："+e.getMessage()+","+e.getErrorCode());
                     Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                 }
             }

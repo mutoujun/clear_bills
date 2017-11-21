@@ -4,7 +4,7 @@ package com.android.account.clear_bills.Interface;
  * Created by Administrator on 2017/11/19.
  */
 
-public interface Get_BmobData<T> {
+public interface Callback<T> {
     /**
      * * Bmob_Net.getBmob_net(this).getsummoney(String 程昱,new Get_BmobData<Integer>() {
             @Override

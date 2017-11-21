@@ -5,32 +5,7 @@ package com.android.account.clear_bills.Interface;
  */
 
 public interface Bmob_Login_interface {
-    //登录和注册同一个接口
-    /**
-     * * 登录调用例子
-     *  Bmob_Net.getBmob_net(this).login("username", "password", new Bmob_Login_interface() {
-            @Override
-            public void success(int code, String message,String user) {
-
-            }
-            });
-     *
-     *
-     * 注册调用例子
-     *  Bmob_Net.getBmob_net(this).register("name", "username", "password", new Bmob_Login_interface() {
-            @Override
-            public void success(int code, String message,String user) {
-
-            }
-            });
-
-     *添加数据调用例子
-     *  Bmob_Net.getBmob_net(this).addorder( float money, String remark, new Bmob_Login_interface() {
-            @Override
-            public void success(int code, String message,String user) {
-
-            }
-            });
+/**
      * @param code  0：表示失败，1：表示成功
      * @param message   返回信息
      */

@@ -12,6 +12,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Public_Data.context=getApplicationContext();
         //第一：默认初始化
         Bmob.initialize(this, "6631877ef016c0ec9f054db1b48b5519");
     }

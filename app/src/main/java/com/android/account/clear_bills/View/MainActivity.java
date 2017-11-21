@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.android.account.clear_bills.Adapter.OrderAdapter;
 import com.android.account.clear_bills.Bean.Order;
 import com.android.account.clear_bills.Interface.Bmob_Login_interface;
-import com.android.account.clear_bills.Interface.Get_BmobData;
+import com.android.account.clear_bills.Interface.Callback;
 import com.android.account.clear_bills.Public_Data;
 import com.android.account.clear_bills.R;
 import com.android.account.clear_bills.ViewModel.Bmob_Net;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Bmob_Net.getBmob_net(MainActivity.this).searchorder(new Get_BmobData<List<Order>>() {
+                Bmob_Net.getBmob_net(MainActivity.this).searchorder(new Callback<List<Order>>() {
                     @Override
                     public void success(List<Order> data) {
                         adapter.refresh(data);
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rec_order);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
-        Bmob_Net.getBmob_net(this).searchorder(new Get_BmobData<List<Order>>() {
+        Bmob_Net.getBmob_net(this).searchorder(new Callback<List<Order>>() {
             @Override
             public void success(List<Order> data) {
                 adapter = new OrderAdapter(data);
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     void sumMoney(final String[] name){
 
-        Bmob_Net.getBmob_net(this).getsummoney(name[0],new Get_BmobData<Integer>() {
+        Bmob_Net.getBmob_net(this).getsummoney(name[0],new Callback<Integer>() {
             @Override
             public void success(Integer data) {
                 cyNum.setText(name[0].substring(0,1)+": ￥ "+data.toString());
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-        Bmob_Net.getBmob_net(this).getsummoney(name[1],new Get_BmobData<Integer>() {
+        Bmob_Net.getBmob_net(this).getsummoney(name[1],new Callback<Integer>() {
             @Override
             public void success(Integer data) {
                 sjNum.setText(name[1].substring(0,1)+": ￥ "+data.toString());
