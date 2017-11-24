@@ -1,26 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.android.account.clear_bills.View.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent"
+        tools:context="com.android.account.clear_bills.View.MainActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+            </android.support.design.widget.AppBarLayout>
 
-    </android.support.design.widget.AppBarLayout>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/order_pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-    <include layout="@layout/content_main" />
+            </android.support.v4.view.ViewPager>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom">
+                <TextView
+                    android:id="@+id/tv_cy_num"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="18dp"
+                    android:textColor="@color/blue"
+                    android:background="#ffaa00"
+                    android:layout_height="match_parent"
+                    android:text="陈："
+                    android:gravity="center" />
 
-
-</android.support.design.widget.CoordinatorLayout>
+                <TextView
+                    android:id="@+id/tv_sj_num"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textColor="#ffaa00"
+                    android:textSize="18dp"
+                    android:layout_height="match_parent"
+                    android:background="#0000ff"
+                    android:text="沙："
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+        <com.android.account.clear_bills.Control.TickView
+            android:id="@+id/tickView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="500dp"
+            app:radius="20dp"
+            app:tick_radius="8dp"
+            app:rate="fast"
+            />
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

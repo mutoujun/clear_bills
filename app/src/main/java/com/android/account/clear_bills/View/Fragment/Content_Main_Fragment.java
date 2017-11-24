@@ -27,7 +27,6 @@ import java.util.List;
 
 public class Content_Main_Fragment extends Fragment {
     private ContentMainBinding contentMain;
-    private OrderAdapter adapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,8 +42,8 @@ public class Content_Main_Fragment extends Fragment {
         Bmob_Net.getBmob_net(getContext()).searchorder(new Callback<List<Order>>() {
             @Override
             public void success(List<Order> data) {
-                adapter = new OrderAdapter(data);
-                contentMain.recOrder.setAdapter(adapter);
+                Public_Data.orderAdapter = new OrderAdapter(data);
+                contentMain.recOrder.setAdapter(Public_Data.orderAdapter);
             }
 
             @Override
@@ -60,7 +59,7 @@ public class Content_Main_Fragment extends Fragment {
                 Bmob_Net.getBmob_net(getActivity()).searchorder(new Callback<List<Order>>() {
                     @Override
                     public void success(List<Order> data) {
-                        adapter.refresh(data);
+                        Public_Data.orderAdapter.refresh(data);
                         contentMain.swipeRefOrder.setRefreshing(false);
                     }
                     @Override

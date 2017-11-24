@@ -43,9 +43,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    OrderAdapter adapter;
     private Calendar calendar;
-    private  DialogOrderBinding dialogView;
+    private DialogOrderBinding dialogView;
     private Content_Main_Fragment mainFragment;
     private Order_Oneself_Fragment oneFragment;
     private List<Fragment> fragmentList;
@@ -111,29 +110,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Public_Data.sumMoney(MainActivity.this,Public_Data.name,Public_Data.activityMain);
     }
 
-
-
-    private void initGetOrderData() {
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rec_order);
-        GridLayoutManager layoutManager = new GridLayoutManager(this,1);
-        recyclerView.setLayoutManager(layoutManager);
-        Bmob_Net.getBmob_net(this).searchorder(new Callback<List<Order>>() {
-            @Override
-            public void success(List<Order> data) {
-                adapter = new OrderAdapter(data);
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void fail(String message) {
-                Toast.makeText(MainActivity.this,message, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-    }
-
-
     private void initToolbar() {
         setSupportActionBar(Public_Data.activityMain.toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -194,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 order.setName(Public_Data.user);
                                 order.setMoney(Float.parseFloat(dialogView.money.getText().toString()));
                                 order.setRemark(dialogView.remark.getText().toString());
-                                adapter.add(order);
+                                Public_Data.orderAdapter.add(order);
                                 Public_Data.sumMoney(MainActivity.this,Public_Data.name,Public_Data.activityMain);
                                 Toast.makeText(MainActivity.this, "创建成功，请核对账单", Toast.LENGTH_SHORT).show();
                                 if (code == 0) {

@@ -1,50 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.android.account.clear_bills.View.MainActivity"
-    tools:showIn="@layout/activity_main"
-    android:orientation="vertical">
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRef_order"
-        android:layout_width="match_parent"
-        android:layout_height="470dp">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rec_order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tv_cy_num"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textSize="18dp"
-            android:textColor="@color/blue"
-            android:background="#ffaa00"
-            android:layout_height="match_parent"
-            android:text="陈："
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/tv_sj_num"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textColor="#ffaa00"
-            android:textSize="18dp"
-            android:layout_height="match_parent"
-            android:background="#0000ff"
-            android:text="沙："
-            android:gravity="center" />
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.android.account.clear_bills.View.MainActivity"
+        tools:showIn="@layout/activity_main"
+        android:orientation="vertical">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRef_order"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rec_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</layout>

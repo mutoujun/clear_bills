@@ -2,6 +2,7 @@ package com.android.account.clear_bills;
 
 import android.content.Context;
 
+import com.android.account.clear_bills.Adapter.OrderAdapter;
 import com.android.account.clear_bills.Interface.Callback;
 import com.android.account.clear_bills.ViewModel.Bmob_Net;
 import com.android.account.clear_bills.databinding.ActivityMainBinding;
@@ -16,6 +17,7 @@ public class Public_Data {
     public static int mYear,mMonth,mDay;
     public static String[] name={"陈煜","沙杰"};
     public static ActivityMainBinding activityMain;
+    public static OrderAdapter orderAdapter;
 
     public static void sumMoney(Context context, final String[] name, final ActivityMainBinding activityMain){
 

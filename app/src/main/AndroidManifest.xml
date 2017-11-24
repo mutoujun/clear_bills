@@ -30,7 +30,7 @@
         </activity>
         <activity
             android:name=".View.MainActivity"
-            android:label="@string/title_activity_detail_list"
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme"></activity>
     </application>
 

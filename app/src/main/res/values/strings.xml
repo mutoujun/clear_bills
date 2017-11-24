@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DIY_View</string>
+    <string name="app_name">云账单</string>
     <string name="title_activity_message">MessageActivity</string>
-    <string name="title_activity_detail_list">DetailListActivity</string>
+    <string name="title_activity_main">日常开销账单</string>
 </resources>
