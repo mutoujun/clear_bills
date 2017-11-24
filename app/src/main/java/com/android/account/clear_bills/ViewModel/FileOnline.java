@@ -25,10 +25,11 @@ public class FileOnline implements Filesave{
         }
         return online;
     }
-    public void savepassword(boolean b){
+    public void savepassword(boolean b,String s){
         SharedPreferences.Editor editor = Public_Data.context.getSharedPreferences("clear_bills",
                 MODE_PRIVATE).edit();
-        editor.putString("password", "");
+        editor.putBoolean("forget",b);
+        editor.putString("password", s);
         editor.commit();
     }
 
@@ -36,7 +37,11 @@ public class FileOnline implements Filesave{
     public void getpassword(Callback<String> callback) {
         SharedPreferences pref =  Public_Data.context.getSharedPreferences("clear_bills",
                 MODE_PRIVATE);
-        String password = pref.getString("password", "");
+        boolean forget = pref.getBoolean("forget", false);
+        String password="0";
+        if (forget){
+            password = pref.getString("password", "");
+        }
         callback.success(password);
     }
 }

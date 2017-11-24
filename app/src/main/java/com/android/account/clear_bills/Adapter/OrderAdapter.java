@@ -1,16 +1,16 @@
 package com.android.account.clear_bills.Adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.android.account.clear_bills.Bean.Order;
+import com.android.account.clear_bills.Public_Data;
 import com.android.account.clear_bills.R;
+import com.android.account.clear_bills.databinding.ItemOrderBinding;
 
 import java.util.List;
 
@@ -24,19 +24,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     private List<Order> orderList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView tvUser,tvMoney,tvRemark;
-        TextView tvLabel1,tvLabel2,tvLabel3;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            cardView = (CardView)itemView;
-            tvUser = (TextView) itemView.findViewById(R.id.tv_user);
-            tvMoney = (TextView) itemView.findViewById(R.id.tv_money);
-            tvRemark = (TextView)itemView.findViewById(R.id.tv_remark);
-            tvLabel1 = (TextView) itemView.findViewById(R.id.tv_label1);
-            tvLabel2 = (TextView) itemView.findViewById(R.id.tv_label2);
-            tvLabel3 = (TextView) itemView.findViewById(R.id.tv_label3);
+        ItemOrderBinding itemView;
+        public ViewHolder(ItemOrderBinding itemView) {
+            super(itemView.getRoot());
+            this.itemView=itemView;
+        }
+        public ItemOrderBinding getItemView(){
+            return itemView;
         }
     }
 
@@ -48,29 +43,38 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         if(context==null){
             context = parent.getContext();
         }
-        View view = LayoutInflater.from(context).inflate(R.layout.item_order,parent,false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        ItemOrderBinding itemOrderBinding = DataBindingUtil.inflate(LayoutInflater.from(context),R.layout.item_order,parent,false);
+        return new ViewHolder(itemOrderBinding);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Order order = orderList.get(position);
-        holder.tvUser.setText(order.getName());
-        String userName = holder.tvUser.getText().toString();
+        holder.getItemView().tvUser.setText(order.getName());
+        String userName = holder.getItemView().tvUser.getText().toString();
         if(userName.equals("陈煜")){
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#ffaa00"));
-            holder.tvLabel1.setTextColor(Color.parseColor("#0000ff"));
-            holder.tvLabel2.setTextColor(Color.parseColor("#0000ff"));
-            holder.tvLabel3.setTextColor(Color.parseColor("#0000ff"));
+            holder.getItemView().setColorLabel(Color.BLACK);
+            holder.getItemView().itemOrderCardView.setCardBackgroundColor(Color.parseColor("#ffaa00"));
+            holder.getItemView().setColorText(Color.BLUE);
         }else {
-            holder.cardView.setCardBackgroundColor(Color.parseColor("#0000ff"));
-            holder.tvLabel1.setTextColor(Color.parseColor("#ffaa00"));
-            holder.tvLabel1.setTextColor(Color.parseColor("#ffaa00"));
-            holder.tvLabel1.setTextColor(Color.parseColor("#ffaa00"));
+            holder.getItemView().setColorLabel(Color.WHITE);
+            holder.getItemView().itemOrderCardView.setCardBackgroundColor(Color.parseColor("#0000ff"));
+            holder.getItemView().setColorText(Color.parseColor("#ffff9900"));
         }
-        holder.tvMoney.setText(order.getMoney().toString());
-        holder.tvRemark.setText(order.getRemark());
+        holder.getItemView().tvMoney.setText(order.getMoney().toString());
+        holder.getItemView().tvRemark.setText(order.getRemark());
+        if (order.getCreatedAt()==null){
+            holder.getItemView().tvDate.setText(updateDateDisplay());
+        }else{
+            holder.getItemView().tvDate.setText(order.getCreatedAt().substring(0,order.getCreatedAt().length()-5));
+        }
+
+       
+    }
+    private String updateDateDisplay() {
+        String time=new StringBuilder().append(Public_Data.mYear).append("-")
+                .append(Public_Data.mMonth + 1).append("-").append(Public_Data.mDay).toString();
+        return time;
     }
     @Override
     public int getItemCount() {
@@ -78,7 +82,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
     public void add(Order order){
-        orderList.add(order);
+        orderList.add(0,order);
         notifyDataSetChanged();
     }
 

@@ -13,6 +13,6 @@ public class BaseClass<T> {
         this.context=context;
     }
     public void toast(T s){
-        Toast.makeText(context, String.valueOf(s), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, String.valueOf(s), Toast.LENGTH_SHORT);
     }
 }

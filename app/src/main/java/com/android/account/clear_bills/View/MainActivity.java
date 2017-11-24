@@ -1,79 +1,117 @@
 package com.android.account.clear_bills.View;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.android.account.clear_bills.Adapter.OrderAdapter;
+import com.android.account.clear_bills.Adapter.OrderPagerAdapter;
 import com.android.account.clear_bills.Bean.Order;
+import com.android.account.clear_bills.Control.OnCheckedChangeListener;
+import com.android.account.clear_bills.Control.TickView;
 import com.android.account.clear_bills.Interface.Bmob_Login_interface;
 import com.android.account.clear_bills.Interface.Callback;
 import com.android.account.clear_bills.Public_Data;
 import com.android.account.clear_bills.R;
+import com.android.account.clear_bills.View.Fragment.Content_Main_Fragment;
+import com.android.account.clear_bills.View.Fragment.Order_Oneself_Fragment;
 import com.android.account.clear_bills.ViewModel.Bmob_Net;
+import com.android.account.clear_bills.databinding.ActivityMainBinding;
+import com.android.account.clear_bills.databinding.DialogOrderBinding;
 
-
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    EditText money,remark;
     OrderAdapter adapter;
-    TextView cyNum,sjNum;
-    String[] name={"陈煜","沙杰"};
+    private Calendar calendar;
+    private  DialogOrderBinding dialogView;
+    private Content_Main_Fragment mainFragment;
+    private Order_Oneself_Fragment oneFragment;
+    private List<Fragment> fragmentList;
+    private OrderPagerAdapter<Fragment> orderPagerAdapter;
+
+    private DatePickerDialog.OnDateSetListener mDataSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+            Public_Data.mYear = i;
+            Public_Data.mMonth = i1;
+            Public_Data.mDay = i2;
+            updateDateDisplay();
+        }
+    };
+    /**
+     * 更新日期显示(记得month要+1，因为DatePicker索引是0-11)
+     */
+    private void updateDateDisplay() {
+        dialogView.btnDate.setText(new StringBuilder().append(Public_Data.mYear).append("-")
+                .append(Public_Data.mMonth + 1).append("-").append(Public_Data.mDay).toString());
+    }
+
+    private void initSetDataTime(){
+        final Calendar calendar = Calendar.getInstance();
+        Public_Data.mYear = calendar.get(Calendar.YEAR);
+        Public_Data.mMonth = calendar.get(Calendar.MONTH);
+        Public_Data.mDay = calendar.get(Calendar.DAY_OF_MONTH);
+        updateDateDisplay();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        Public_Data.activityMain = DataBindingUtil.setContentView(this,R.layout.activity_main);
         //初始化绑定视图ID
-        init();
-        initGetOrderData();
+        initToolbar();
+//        initGetOrderData();
+        initGetOrderPager();
         initGetUserSum();
-        refreshOrderData();
+        setupTickViewCheckedEvent();
 
     }
 
-    private void initGetUserSum() {
-        cyNum = (TextView) findViewById(R.id.tv_cy_num);
-        sjNum = (TextView) findViewById(R.id.tv_sj_num);
-        sumMoney(name);
+    private void initGetOrderPager() {
+        mainFragment = new Content_Main_Fragment();
+        oneFragment = new Order_Oneself_Fragment();
+        fragmentList = new ArrayList<>();
+        fragmentList.add(mainFragment);
+        fragmentList.add(oneFragment);
+        orderPagerAdapter = new OrderPagerAdapter<>(getSupportFragmentManager(),fragmentList);
+        Public_Data.activityMain.orderPager.setAdapter(orderPagerAdapter);
     }
 
-    private void refreshOrderData() {
-        final SwipeRefreshLayout swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipeRef_order);
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+    private void setupTickViewCheckedEvent() {
+        Public_Data.activityMain.tickView.getConfig().setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
-            public void onRefresh() {
-                Bmob_Net.getBmob_net(MainActivity.this).searchorder(new Callback<List<Order>>() {
-                    @Override
-                    public void success(List<Order> data) {
-                        adapter.refresh(data);
-                        swipeRefresh.setRefreshing(false);
-                    }
-
-                    @Override
-                    public void fail(String message) {
-                        Toast.makeText(MainActivity.this, "刷新失败", Toast.LENGTH_SHORT).show();
-                        swipeRefresh.setRefreshing(false);
-                    }
-                });
-                sumMoney(name);
+            public void onCheckedChanged(TickView tickView, boolean isCheck) {
+                recordBills();
             }
         });
     }
+
+    private void initGetUserSum() {
+        Public_Data.sumMoney(MainActivity.this,Public_Data.name,Public_Data.activityMain);
+    }
+
+
 
     private void initGetOrderData() {
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rec_order);
@@ -96,9 +134,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void init() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    private void initToolbar() {
+        setSupportActionBar(Public_Data.activityMain.toolbar);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -119,66 +156,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.add:
-                View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_order, null);
-                money = (EditText) dialogView.findViewById(R.id.money);
-                remark = (EditText) dialogView.findViewById(R.id.remark);
-                new AlertDialog.Builder(this).setTitle(Public_Data.user).setView(dialogView)
-                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                if (TextUtils.isEmpty(money.getText().toString()) || TextUtils.isEmpty(remark.getText().toString())) {
-                                    Toast.makeText(MainActivity.this, "信息不能为空", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                Bmob_Net.getBmob_net(MainActivity.this).addorder(Float.parseFloat(money.getText().toString()), remark.getText().toString(), new Bmob_Login_interface() {
-                                    @Override
-                                    public void success(int code, String message, String user) {
-                                        Order order = new Order();
-                                        order.setName(Public_Data.user);
-                                        order.setMoney(Float.parseFloat(money.getText().toString()));
-                                        order.setRemark(remark.getText().toString());
-                                        adapter.add(order);
-                                        if (code == 0) {
-                                            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                            }
-                        }).create().show();
+                recordBills();
+                break;
+            case R.id.clear:
+                clearBills();
         }
         return super.onOptionsItemSelected(item);
     }
 
-
-    void sumMoney(final String[] name){
-
-        Bmob_Net.getBmob_net(this).getsummoney(name[0],new Callback<Integer>() {
-            @Override
-            public void success(Integer data) {
-                cyNum.setText(name[0].substring(0,1)+": ￥ "+data.toString());
-            }
-
-            @Override
-            public void fail(String message) {
-
-            }
-        });
-        Bmob_Net.getBmob_net(this).getsummoney(name[1],new Callback<Integer>() {
-            @Override
-            public void success(Integer data) {
-                sjNum.setText(name[1].substring(0,1)+": ￥ "+data.toString());
-            }
-
-            @Override
-            public void fail(String message) {
-
-            }
-        });
+    private void clearBills() {
+        double cyNum = Double.parseDouble(Public_Data.activityMain.tvCyNum.getText().toString().substring(5));
+        double sjNum = Double.parseDouble(Public_Data.activityMain.tvSjNum.getText().toString().substring(5));
+        double resultNum = (cyNum-sjNum)/2.0;
+        new AlertDialog.Builder(MainActivity.this).setTitle("清算账单")
+                .setMessage(resultNum>0? "沙给陈："+String.valueOf(Math.abs(resultNum))
+                        : "陈给沙："+String.valueOf(Math.abs(resultNum)))
+                .create().show();
     }
+
+    private void recordBills() {
+        dialogView =DataBindingUtil.inflate( LayoutInflater.from(MainActivity.this),
+                R.layout.dialog_order,null,false) ;
+        initSetDataTime();
+        dialogView.btnDate.setOnClickListener(this);
+        new AlertDialog.Builder(this).setTitle(Public_Data.user).setView(dialogView.getRoot())
+                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if ("".equals(dialogView.money.getText().toString())|| "".equals(dialogView.remark.getText().toString())) {
+                            Toast.makeText(MainActivity.this, "信息不能为空", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Bmob_Net.getBmob_net(MainActivity.this).addorder(Float.parseFloat(dialogView.money.getText().toString()), dialogView.remark.getText().toString(), new Bmob_Login_interface() {
+                            @Override
+                            public void success(int code, String message, String user) {
+                                Order order = new Order();
+                                order.setName(Public_Data.user);
+                                order.setMoney(Float.parseFloat(dialogView.money.getText().toString()));
+                                order.setRemark(dialogView.remark.getText().toString());
+                                adapter.add(order);
+                                Public_Data.sumMoney(MainActivity.this,Public_Data.name,Public_Data.activityMain);
+                                Toast.makeText(MainActivity.this, "创建成功，请核对账单", Toast.LENGTH_SHORT).show();
+                                if (code == 0) {
+                                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                }).create().show();
+    }
+
+
+
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_date:
+                new DatePickerDialog(MainActivity.this,mDataSetListener,Public_Data.mYear,Public_Data.mMonth,Public_Data.mDay).show();
+        }
 
     }
 }

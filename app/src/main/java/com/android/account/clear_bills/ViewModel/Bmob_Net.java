@@ -119,7 +119,7 @@ public class Bmob_Net extends BaseClass{
             }
         });
     }
-    public void getsummoney(String name,final Callback<Integer> callback){
+    public void getsummoney(String name,final Callback<Float> callback){
         BmobQuery<Order> query = new BmobQuery<Order>();
 //查询playerName叫“比目”的数据
         query.addWhereEqualTo("enter", false);
@@ -136,13 +136,13 @@ public class Bmob_Net extends BaseClass{
                     if(ary!=null){//
                         try {
                             JSONObject obj = ary.getJSONObject(0);
-                            int sum = obj.getInt("_sumMoney");//_(关键字)+首字母大写的列名
+                            float sum =(float) (obj.getDouble("_sumMoney"));//_(关键字)+首字母大写的列名
                             callback.success(sum);
                         } catch (JSONException e1) {
                             e1.printStackTrace();
                         }
                     }else{
-                        callback.success(0);
+                        callback.success(0.0f);
                        // showToast("查询成功，无数据");
                     }
                 }else{
